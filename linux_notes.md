@@ -376,14 +376,22 @@ kill: (1234) - No such process
 
 ## 6. LAB MAPPING – Single‑Command Creation of 100 Files
 **Goal**: Demonstrate how to generate 100 empty files named `file001.txt` … `file100.txt` in one line.
-**Command**:
+
+**Method 1: Brace Expansion (Simplest & Best for Exam)**
+```bash
+touch file{001..100}.txt
+```
+**Explanation**:
+- `{001..100}`: Automatically creates a sequence of numbers from 001 to 100 zero-padded.
+- `touch`: Creates files for every item in the expanded list.
+
+**Method 2: Using `seq` and `xargs` (Universal/Scripting approach)**
 ```bash
 seq -w 1 100 | xargs -I{} touch file{}.txt
 ```
 **Explanation**:
-- `seq -w 1 100` produces zero‑padded numbers (`001`‑`100`).
-- `xargs -I{}` substitutes each number into `touch file{}.txt`, creating the file.
-- This single pipeline satisfies the lab requirement of “one command” and teaches the use of `seq` and `xargs`.
+- `seq -w 1 100`: Generates numbers `001` to `100`.
+- `xargs -I{}`: Takes each number and passes it to the `touch` command command.
 
 ## 7. Fifteen MCQs (≥5 Command‑Output Based)
 1. Which flag makes `ls` show hidden files? **A) `-a`**
