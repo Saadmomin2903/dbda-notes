@@ -79,18 +79,12 @@ graph TD
     D --> H
 ```
 
-**ASCII fallback**
-```
-+-------------------+      +-------------------+
-|   User Space     |      |   Kernel Space   |
-|-------------------|      |-------------------|
-| Applications      | ---> | System Call IF   |
-| Libraries         | ---> | Scheduler        |
-| Utilities         | ---> | Memory Manager   |
-+-------------------+      | Device Drivers   |
-                             | Network Stack   |
-                             +-------------------+
-```
+
+- **Explanation of Diagram**:
+  - **User Space** contains your running applications (web browsers, shells, scripts). They cannot access hardware directly.
+  - **Kernel Space** is the protected core.
+  - **System Calls (syscalls)** are the bridge: when an app needs to read a file or send a network packet, it asks the kernel via a syscall.
+
 
 ---
 
@@ -418,15 +412,15 @@ graph TD
     SYSTEMD -->|Targets| MULTI["multi-user.target"]
     MULTI -->|Services| SERVICES["sshd, nginx, …"]
 ```
-**ASCII fallback**
-```
-++-----------+   +------+   +----------+   +----------+   +-----------------+
-| BIOS/UEFI |-\u003e |GRUB |-\u003e| Kernel   |-\u003e| initramfs|-\u003e| systemd (PID 1) |
-++-----------+   +------+   +----------+   +----------+   +-----------------+
-+                                            |
-+                                            v
-+                                      multi-user.target -\u003e services (sshd, httpd, …)
-```
+
+- **Explanation of Boot Flow**:
+  1. **BIOS/UEFI**: Initializes hardware and loads the bootloader.
+  2. **GRUB**: The bootloader that loads the Linux Kernel into memory.
+  3. **Kernel**: Detects hardware and mounts the temporary root filesystem (`initramfs`).
+  4. **initramfs**: Loads necessary drivers to mount the real root filesystem.
+  5. **systemd**: The first process (PID 1) that starts all other services.
+  6. **Targets**: `systemd` reaches a target (like `multi-user.target`), which triggers services like `sshd` or web servers.
+
 
 ## 9. References (Man Pages)
 - `man 5 bootloader` – GRUB configuration
@@ -542,25 +536,27 @@ Assume the task: *Give user `bob` read/write access while keeping the owner’s 
 4. **`set` vs. `:set` in vi** – `set` without a colon works only in Ex mode; in normal editing you must prefix with `:`.
 5. **`ssh` vs. `sftp` security** – both use the same SSH encryption; the difference is the subsystem (shell vs. file transfer).
 
-## 8. Diagram – Permission Evaluation Order (ASCII)
+
+## 8. Diagram – Permission Evaluation Order
+
+```mermaid
+flowchart TD
+    A["Incoming Request"] --> B{"Is Owner?"}
+    B -- Yes --> C["Use Owner Perms"]
+    B -- No --> D{"Matches User ACL?"}
+    D -- Yes --> E{"Mask Exists?"}
+    E -- Yes --> F["Apply Mask to ACL"]
+    E -- No --> G["Use ACL Perm"]
+    F --> H["Effective Permission"]
+    G --> H
+    D -- No --> I{"Matches Group ACL?"}
+    I -- Yes --> E
+    I -- No --> J["Use Other Perms"]
 ```
-+-------------------+   +-------------------+
-|   ACL Check      |   | Traditional bits |
-+-------------------+   +-------------------+
-          |                     |
-          v                     v
-+-------------------+   +-------------------+
-|   Mask (if any)  |   |   Owner / Group   |
-+-------------------+   +-------------------+
-          |                     |
-          +----------+----------+
-                     |
-                     v
-            +-------------------+
-            | Effective Result |
-            +-------------------+
-```
-The system first looks for a matching ACL entry; if a mask exists it limits the rights, otherwise it falls back to the classic owner‑group‑other bits.
+
+- **Explanation of Diagram**:
+  - The system checks permissions in specific order: **Owner** first, then **Named Users (ACLs)**, then **Group** (including named groups), and finally **Others**.
+  - **Masking**: If an ACL mask is present, it acts as a ceiling. Even if an ACL grants `rwx`, if the mask is `r--`, the effective permission is only `r--`.
 
 ## 9. References
 - `man 1 chmod`
