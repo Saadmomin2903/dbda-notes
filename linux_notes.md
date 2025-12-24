@@ -590,6 +590,7 @@ The system first looks for a matching ACL entry; if a mask exists it limits the 
 - `chgrp [options] group file` – change group ownership.
   - Common flags: `-R` (recursive), `-v` (verbose).
 
+
 ### Sample Output
 ```
 $ chmod 750 script.sh
@@ -599,6 +600,11 @@ $ chown alice:staff report.txt
 $ ls -l report.txt
 -rw-r--r-- 1 alice staff 5678 Jan 11 08:30 report.txt
 ```
+
+- **Explanation of Output**:
+  - `chmod 750`: Sets permissions to `rwxr-x---` (User: read/write/exec, Group: read/exec, Others: none).
+  - `chown alice:staff`: Changes file owner to user `alice` and group to `staff`.
+
 
 ### MCQ Trap
 Assuming `chmod 777` makes a file “secure” – it actually gives **everyone** full access.
@@ -611,6 +617,7 @@ Assuming `chmod 777` makes a file “secure” – it actually gives **everyone*
 - `umount <mount-point>` – detach a filesystem.
   - Option: `-l` (lazy unmount).
 
+
 ### Sample Output
 ```
 $ sudo mount /dev/sdb1 /mnt/usb
@@ -619,6 +626,13 @@ Filesystem      Size  Used Avail Use% Mounted on
 /dev/sdb1       7.5G  2.1G  5.4G  28% /mnt/usb
 $ sudo umount /mnt/usb
 ```
+
+- **Explanation of Output**:
+  - `mount`: Attaches the device `/dev/sdb1` to the directory `/mnt/usb`.
+  - `df -h`: Shows disk usage in "human-readable" format (GB/MB).
+  - `/dev/sdb1`: The filesystem partition being used.
+  - `28%`: Percentage of space currently used on that partition.
+
 
 ### MCQ Trap
 Confusing `umount` with `unmount` – the correct command is **`umount`** (no “n”).
