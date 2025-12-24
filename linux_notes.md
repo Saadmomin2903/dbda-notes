@@ -610,12 +610,12 @@ flowchart TD
     A[Start Shell] --> B{Login?}
     B -- Yes --> C[/etc/profile]
     C --> D{User Shell?}
-    D --|Bash| E[~/.bash_profile ⏎ ~/.bash_login ⏎ ~/.profile]
-    D --|Zsh| F[~/.zprofile]
+    D -- Bash --> E[~/.bash_profile\n~/.bash_login\n~/.profile]
+    D -- Zsh --> F[~/.zprofile]
     B -- No --> G{Interactive?}
     G -- Yes --> H{Bash?}
-    H --|Yes| I[/etc/bashrc → ~/.bashrc]
-    H --|No| J[/etc/zshrc → ~/.zshrc]
+    H -- Yes --> I[/etc/bashrc → ~/.bashrc]
+    H -- No --> J[/etc/zshrc → ~/.zshrc]
     G -- No --> K[Read $BASH_ENV]
 ```
 
