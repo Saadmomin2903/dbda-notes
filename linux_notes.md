@@ -467,7 +467,14 @@ graph TD
 
 # Session 3 – Gaining Confidence with Linux
 
-## 1. Permissions Model (User/Group/Other + Octal)
+## 1. Key Terminology (Exam Basics)
+- **Octal Permissions**: Representing file rights using base-8 numbers (0-7). (e.g., Read=4, Write=2, Execute=1).
+- **ACL (Access Control List)**: An extension to standard file permissions allowing fine-grained access (e.g., giving a specific user rights without changing group ownership).
+- **Sticky Bit**: A special permission bit on directories that restricts deletion of files to only the file owner, even if the directory is writeable by others (commonly used on `/tmp`).
+- **SSH (Secure Shell)**: A cryptographic protocol for secure remote login and command execution, replacing insecure Telnet.
+- **vi/vim**: A powerful, modal command-line text editor standard on most Linux systems.
+
+## 2. Permissions Model (User/Group/Other + Octal)
 - **u/g/o**: three classes – **user** (owner), **group**, **others**. Each class has three bits: **r** (read = 4), **w** (write = 2), **x** (execute = 1).
 - **Octal notation**: combine bits per class → three‑digit octal number (e.g., `0754`).
   - First digit: special bits – setuid (4), setgid (2), sticky (1).
@@ -704,7 +711,14 @@ Confusing `umount` with `unmount` – the correct command is **`umount`** (no �
 
 ## Session 4,5,6 – Linux Shell Programming
 
-### 1. Shell Lifecycle & Startup File Order
+### 1. Key Terminology (Exam Basics)
+- **Login Shell**: The first shell retrieved after successful authentication (reads `.bash_profile`).
+- **Shebang (`#!`)**: The first line in a script (e.g., `#!/bin/bash`) telling the OS which interpreter to use.
+- **Environment Variable**: A global variable available to the shell and its child processes, typically set with `export` (e.g., `PATH`, `USER`).
+- **Exit Status**: An integer returned by a command to indicate success (0) or failure (non-zero), stored in `$?`.
+- **Job Control**: The ability to stop, pause, and background processes using signals (Ctrl+Z, `bg`, `fg`).
+
+### 2. Shell Lifecycle & Startup File Order
 
 A **login shell** reads `/etc/profile`, then the first of `~/.bash_profile`, `~/.bash_login`, or `~/.profile` (Bash) / `~/.zprofile` (Zsh). An **interactive non‑login shell** reads `/etc/bashrc` and `~/.bashrc` (Bash) / `~/.zshrc` (Zsh). A **non‑interactive shell** reads the file specified by the `BASH_ENV` environment variable.
 
@@ -944,23 +958,30 @@ flowchart TD
 
 ## Session 7 – Git / GitHub
 
-### 1. Version Control Basics
+### 1. Key Terminology (Exam Basics)
+- **VCS (Version Control System)**: Software that tracks changes to files over time (e.g., Git, SVN).
+- **Repository (Repo)**: A storage location for your project's code and its entire history.
+- **Commit**: A snapshot of your code at a specific point in time.
+- **Stage (Index)**: The area where you prepare files before committing them.
+- **Pull Request (PR)**: A mechanism in platforms like GitHub to propose changes and review code before merging it into the main branch.
+
+### 2. Version Control Basics
 - **Version control** tracks changes to files over time, enabling rollback, collaboration, and history inspection.
 - **Centralized VCS** (e.g., Subversion): a single server holds the authoritative repository; clients check out and commit directly to it.
 - **Distributed VCS** (e.g., Git): every clone contains the full repository history; commits are local and can be pushed to remotes.
 
-### 2. Git vs GitHub
+### 3. Git vs GitHub
 - **Git** is the DVCS engine (commands, data structures).
 - **GitHub** is a hosted service that stores Git repositories and adds collaboration features (pull requests, issues, web UI).
 
-### 3. Repository Creation
+### 4. Repository Creation
 - **Local repository**: `git init` creates a `.git` directory.
 - **Remote repository** (GitHub): create a new repo via the web UI, then add it as a remote:
   ```bash
   git remote add origin https://github.com/<username>/<repo>.git
   ```
 
-### 4. Core Git Commands (with examples)
+### 5. Core Git Commands (with examples)
 | Command | Example | Description |
 |---|---|---|
 | `git init` | `git init myproj` | Initialise a new repository.
@@ -977,7 +998,7 @@ flowchart TD
 | `git fetch` | `git fetch origin` | Retrieve remote objects without merging.
 | `git rebase` | `git rebase main` | Reapply commits on top of another base.
 
-### 5. Git Workflow Diagram
+### 6. Git Workflow Diagram
 ```mermaid
 flowchart TD
     A["Working Directory"] --> B[git add]
@@ -988,13 +1009,13 @@ flowchart TD
     F -->|fetch/pull| E
 ```
 
-### 6. Common MCQ Traps
+### 7. Common MCQ Traps
 - **Commit vs Push**: `git commit` records locally; `git push` sends to remote.
 - **Clone vs Fork**: `clone` copies an existing repo; `fork` creates a new remote copy under your GitHub account.
 - **Pull vs Fetch**: `pull` = `fetch` + `merge`; `fetch` only downloads.
 - **Merge vs Rebase**: merge creates a merge commit; rebase rewrites history.
 
-### 7. MCQs (10)
+### 8. MCQs (10)
 1. Which command creates a new empty Git repository? **A) `git init`**
 2. To copy a remote repository to your machine, you use: **B) `git clone`**
 3. After editing files, which command stages them for commit? **C) `git add`**
@@ -1006,7 +1027,7 @@ flowchart TD
 9. Which command switches to an existing branch named `dev`? **I) `git checkout dev`**
 10. To combine changes from branch `feature` into `main` you would typically use: **J) `git merge feature`**
 
-### 8. Lab Mini‑Tasks
+### 9. Lab Mini‑Tasks
 **Task 1 – Initialise and commit**
 ```bash
 mkdir demo && cd demo
@@ -1045,12 +1066,19 @@ Open a Pull Request on GitHub.
 
 ## Session 8 – Introduction to Cloud Computing
 
-### 1. Formal Definition (exam‑ready)
+### 1. Key Terminology (Exam Basics)
+- **Cloud Computing**: On-demand delivery of IT resources (compute, storage) over the internet with pay-as-you-go pricing.
+- **NIST**: National Institute of Standards and Technology – defined the standard reference model for cloud computing.
+- **CAPEX vs OPEX**: Capital Expenditure (upfront hardware cost) vs Operational Expenditure (ongoing monthly cloud bills).
+- **Elasticity**: The ability to automatically scale resources up or down based on demand.
+- **SLA (Service Level Agreement)**: A contract guaranteeing a certain level of uptime/availability (e.g., 99.9%).
+
+### 2. Formal Definition (exam‑ready)
 - **Cloud Computing**: A model for enabling ubiquitous, convenient, on‑demand network access to a shared pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that can be rapidly provisioned and released with minimal management effort or service provider interaction. *(NIST SP 800‑145)*
 
 > **Expanded Explanation:** Cloud computing abstracts the underlying hardware, allowing users to focus on application logic. It supports on‑demand scaling, pay‑as‑you‑go pricing, and global accessibility. The model includes service models (IaaS, PaaS, SaaS) and deployment models (public, private, hybrid, community).
 
-### 2. NIST Cloud Characteristics (gold‑standard MCQ material)
+### 3. NIST Cloud Characteristics (gold‑standard MCQ material)
 
 > **Explanation:** The NIST characteristics define the essential properties of cloud services. They are used by exam writers to craft questions about self‑service, network access, pooling, elasticity, and metering.
 | # | Characteristic | Brief Explanation |
@@ -1061,7 +1089,7 @@ Open a Pull Request on GitHub.
 | 4 | **Rapid elasticity** | Capabilities can be elastically provisioned and released, scaling automatically. |
 | 5 | **Measured service** | Resource usage is monitored, controlled, and reported for transparency. |
 
-### 3. Major Cloud Vendors – Comparison Table
+### 4. Major Cloud Vendors – Comparison Table
 
 > **Vendor Overview:** Each provider offers a broad portfolio. AWS leads in breadth and maturity, Azure integrates tightly with Microsoft ecosystems, and GCP excels in data analytics and AI services.
 | Feature | **AWS** | **Microsoft Azure** | **Google Cloud Platform (GCP)** |
@@ -1091,7 +1119,7 @@ flowchart LR
     Traditional --> Cloud
 ```
 
-### 5. Common MCQ Traps (exam focus)
+### 6. Common MCQ Traps (exam focus)
 
 > **Trap Details:** These traps highlight common misconceptions that candidates often fall for; understanding the nuance helps avoid selecting wrong options.
 - **Elasticity vs Scalability** – Elasticity is automatic, scalability may require manual configuration.
@@ -1099,7 +1127,7 @@ flowchart LR
 - **Public vs Private Cloud** – Public is shared; private is dedicated to a single organization.
 - **Pay‑as‑you‑go vs Reserved** – Reserved offers lower cost for committed usage; pay‑as‑you‑go is on‑demand.
 
-### 6. MCQs (12)
+### 7. MCQs (12)
 1. Which NIST characteristic describes the ability to automatically provision and release resources? **A) On‑demand self‑service**
 2. In a cloud model, the shared pool of resources is known as **B) Resource pooling**.
 3. Which service model provides a complete development platform including OS, runtime, and middleware? **C) PaaS**.
@@ -1113,14 +1141,21 @@ flowchart LR
 11. In GCP, **preemptible VMs** are similar to which AWS offering? **B) Spot Instances**.
 12. Which diagram element represents **auto‑scaling** in the Cloud Model? **H) Auto‑Scaling & Managed Ops**.
 
-### 7. References
+### 8. References
 - NIST SP 800‑145 – *The NIST Definition of Cloud Computing* (https://csrc.nist.gov/publications/detail/sp/800-145/final)
 
 ---
 
 ## Session 11 & 12 – Cloud Administration & Monitoring
 
-### 1. Pricing Dimensions
+### 1. Key Terminology (Exam Basics)
+- **vCPU**: A virtual central processing unit assigned to a cloud instance.
+- **Region vs Zone**: A Region is a geographic area; an Availability Zone (AZ) is an isolated data center within a region.
+- **Spot Instance**: Unused cloud capacity offered at steep discounts but can be interrupted at any time.
+- **Latency**: The delay before a transfer of data begins following an instruction.
+- **Throughput**: The actual amount of data successfully moved from one place to another in a given time period.
+
+### 2. Pricing Dimensions
 | Dimension | What It Covers | Typical Metric | Example Provider Insight |
 |---|---|---|---|
 | **Compute** | vCPU, instance type, runtime hours | CPU‑hours, vCPU‑seconds | AWS EC2 on‑demand rate, Azure VM pay‑as‑you‑go |
@@ -1275,7 +1310,14 @@ Verify the alarm triggers when the spend exceeds the limit.
 
 ## Session 9 & 10 – Cloud Service Models & Virtualization
 
-### 1. Service Model Comparison Matrix
+### 1. Key Terminology (Exam Basics)
+- **Hypervisor**: Software that creates and runs virtual machines (VMs) by separating the OS from hardware.
+- **IaaS (Infrastructure as a Service)**: Cloud model providing raw virtualized resources (VMs, networks).
+- **PaaS (Platform as a Service)**: Cloud model providing a development platform (OS, runtime) so developers focus only on code.
+- **SaaS (Software as a Service)**: Fully managed end-user applications accessed over the web.
+- **Type 1 vs Type 2**: Bare-metal hypervisors (Type 1) vs Hosted hypervisors running on an OS (Type 2).
+
+### 2. Service Model Comparison Matrix
 | Model | Definition | Typical Use‑Case | Example Provider |
 |---|---|---|---|
 | **SaaS** | Fully managed applications delivered over the internet. Users interact via UI or API; no infrastructure management. | End‑user productivity, CRM, email. | Google Workspace, Microsoft 365, Salesforce |
@@ -1372,7 +1414,14 @@ flowchart TB
 
 ## Session 13 & 14 – AWS & Azure Deep Dive
 
-### 1. Elastic Cloud Compute & Dashboard
+### 1. Key Terminology (Exam Basics)
+- **EC2**: Amazon Elastic Compute Cloud – web service that provides secure, resizable compute capacity.
+- **Cosmos DB**: Microsoft's globally distributed, multi-model NoSQL database service.
+- **MPI (Message Passing Interface)**: A standardized and portable message-passing standard designed for parallel computing capabilities.
+- **HPC (High Performance Computing)**: Aggregating computing power to deliver much higher performance than a generic desktop/server.
+- **Slurm**: An open-source, fault-tolerant, and highly scalable cluster management and job scheduling system.
+
+### 2. Elastic Cloud Compute & Dashboard
 - **AWS EC2 (Elastic Compute Cloud)** – Resizable virtual servers; the EC2 console dashboard displays instance ID, state, type, security groups, key‑pair, tags, CPU/Network metrics, and allows start/stop/reboot actions.
 - **Azure Virtual Machines** – Azure portal provides a similar VM dashboard with overview, size, OS, networking, monitoring charts, and quick actions (Start, Stop, Restart).
 - **Key Exam Points** – Understand that “Elastic” refers to on‑demand scaling; dashboards are used for health‑checks, cost‑monitoring, and troubleshooting.
