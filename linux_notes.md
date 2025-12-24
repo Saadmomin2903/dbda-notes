@@ -222,89 +222,162 @@ graph TD
 ## 5. COMMAND SECTION
 
 ### `ls`
+
 - **Syntax**: `ls [options] [path]`
+
 - **Common Flags**: `-l` (long listing), `-a` (show hidden files)
+
 - **Sample Output**:
 ```
 -rw-r--r-- 1 user user  1024 Jan 10 12:00 file.txt
 drwxr-xr-x 2 user user  4096 Jan 11 08:30 docs
 ```
+
+- **Explanation of Output**:
+  - `-rw-r--r--`: Permissions (read/write for owner, read-only for others).
+  - `user user`: Owner and Group.
+  - `1024`: File size in bytes.
+  - `Jan 10 12:00`: Last modification time.
+  - `file.txt`: File name.
+
 - **MCQ Trap**: Confusing `-a` (all) with `-A` (all except `.` and `..`).
 
 ### `cp`
+
 - **Syntax**: `cp [options] source destination`
+
 - **Common Flags**: `-r` (recursive), `-p` (preserve attributes)
+
 - **Sample Output**: *(no output on success; error on failure)*
 ```
 cp: cannot stat 'nonexistent': No such file or directory
 ```
+
+- **Explanation of Output**:
+  - `cannot stat`: The system could not find file information.
+  - `No such file or directory`: The source file does not exist.
+
 - **MCQ Trap**: Assuming `cp -r` copies symlinks as files; actually copies the link target unless `-d` is used.
 
 ### `mv`
+
 - **Syntax**: `mv [options] source destination`
+
 - **Common Flags**: `-i` (interactive), `-f` (force)
+
 - **Sample Output**: *(silent on success)*
 ```
 mv: rename old.txt to new.txt: Permission denied
 ```
+
+- **Explanation of Output**:
+  - `Permission denied`: The user does not have write permission on the directory to move/rename the file.
+
 - **MCQ Trap**: Believing `mv` creates a copy; it moves in‑place (same inode) when on same filesystem.
 
 ### `grep`
+
 - **Syntax**: `grep [options] pattern [file...]`
+
 - **Common Flags**: `-i` (ignore case), `-r` (recursive)
+
 - **Sample Output**:
 ```
 line 42:   error: failed to start service
 ```
+
+- **Explanation of Output**:
+  - `line 42`: Text from the file matching the pattern.
+  - `error`: The pattern that was searched for.
+  - The command acts as a filter, showing only lines that contain the match.
+
 - **MCQ Trap**: Mixing up `-E` (extended regex) with `-F` (fixed‑string).
 
 ### `find`
+
 - **Syntax**: `find [path...] [expression]`
+
 - **Common Flags**: `-name` (match name), `-type` (file type)
+
 - **Sample Output**:
 ```
 ./logs/error.log
 ./tmp/report.txt
 ```
+
+- **Explanation of Output**:
+  - Lists the relative paths of all files matching the criteria (e.g., name ending in `.log` or `.txt`) found within the current directory structure.
+
 - **MCQ Trap**: Forgetting that `find` evaluates the whole expression left‑to‑right; ordering matters for performance.
 
 ### `tar`
+
 - **Syntax**: `tar [options] [archive-file] [files...]`
+
 - **Common Flags**: `-c` (create), `-x` (extract), `-z` (gzip), `-v` (verbose)
+
 - **Sample Output** (verbose extract):
 ```
 file1.txt
 dir/file2.conf
 ```
+
+- **Explanation of Output**:
+  - Displays each file as it is being extracted from the archive because the `-v` (verbose) flag was used.
+
 - **MCQ Trap**: Assuming `tar -czf` creates a *zip* file; it creates a gzipped tarball (`.tar.gz`).
 
 ### `ln`
+
 - **Syntax**: `ln [options] target linkname`
+
 - **Common Flags**: `-s` (symbolic), `-f` (force)
+
 - **Sample Output**: *(none on success)*
 ```
 ln: failed to create symbolic link ‘link’: File exists
 ```
+
+- **Explanation of Output**:
+  - Error message indicating that a file named `link` already exists, so `ln` cannot create a new link with that name unless `-f` (force) is used.
+
 - **MCQ Trap**: Confusing hard links (`ln`) with symbolic links (`ln -s`). Hard links cannot span filesystems.
 
 ### `ps`
+
 - **Syntax**: `ps [options]`
+
 - **Common Flags**: `-e` (all processes), `-f` (full‑format)
+
 - **Sample Output**:
 ```
 UID   PID  PPID  C STIME TTY          TIME CMD
 root     1     0  0 Jan01 ?        00:00:02 /sbin/init
 user   1234  567  0 09:15 pts/0    00:00:00 bash
 ```
+
+- **Explanation of Output**:
+  - `UID`: User ID of the process owner.
+  - `PID`: Process ID (unique identifier).
+  - `PPID`: Parent Process ID (who started this process).
+  - `CMD`: The command that launched the process.
+
 - **MCQ Trap**: Assuming `ps aux` works on all UNIXes; on some systems `ps -ef` is the portable equivalent.
 
 ### `kill`
+
 - **Syntax**: `kill [options] <pid>...`
+
 - **Common Flags**: `-9` (SIGKILL), `-15` (SIGTERM)
+
 - **Sample Output**: *(no output on success)*
 ```
 kill: (1234) - No such process
 ```
+
+- **Explanation of Output**:
+  - `No such process`: There is no running process with PID 1234, so the signal could not be sent.
+
 - **MCQ Trap**: Believing `kill -9` gracefully terminates a process; it forces immediate termination, bypassing cleanup.
 
 ## 6. LAB MAPPING – Single‑Command Creation of 100 Files
