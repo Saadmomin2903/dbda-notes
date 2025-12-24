@@ -5,7 +5,21 @@ The first two sessions of the Linux module introduce the origins and evolution o
 
 ---
 
-## 2. Topic‑wise Explanation
+## 2. Key Terminology (Exam Basics)
+Before diving into history, understand these core terms often asked in definitions:
+
+- **Kernel**: The "brain" of the OS. It directly communicates with hardware (CPU, RAM, Disk) and manages resources.
+- **Shell**: The "interpreter". It takes your typed commands (like `ls`, `cd`) and translates them into instructions the kernel understands.
+- **Distribution (Distro)**: A complete package containing the Linux Kernel + GNU Tools + Package Manager + Desktop Environment. (Example: Ubuntu, CentOS, Fedora).
+- **Monolithic Kernel**: A kernel architecture where all essential drivers (filesystem, networking) run in the same high-privilege memory space for maximum performance.
+- **GNU Project**: Launched by Richard Stallman to create a free, Unix-like operating system. Linux uses many GNU tools (like the bash shell and gcc compiler).
+- **GPL (General Public License)**: A "Copyleft" license. If you modify GPL software and distribute it, you *must* share your source code.
+- **System Call (syscall)**: The bridge between User Space (apps) and Kernel Space. When a program needs to write to a disk, it makes a "syscall".
+- **LTS (Long Term Support)**: A release version maintained for years (e.g., 5-10 years) with security updates, ideal for servers.
+
+---
+
+## 3. Topic‑wise Explanation
 
 ### 2.1 The Evolution of Linux
 - **Definition**: Linux is a Unix‑like, monolithic kernel originally created by Linus Torvalds in 1991, now the core of countless distributions.
@@ -43,7 +57,7 @@ The first two sessions of the Linux module introduce the origins and evolution o
 
 ---
 
-## 3. Linux Architecture Explanation (User Space vs Kernel Space)
+## 4. Linux Architecture Explanation (User Space vs Kernel Space)
 - **Kernel Space**: Executes with highest privileges, manages memory, process scheduling, device drivers, networking stack, and system calls. It is a single address space shared by all kernel code.
 - **User Space**: Runs applications, shells, and utilities. Each process has its own virtual address space, isolated from the kernel. Interaction occurs via system calls (e.g., `open`, `read`, `write`).
 - **Interaction Flow**:
@@ -55,7 +69,7 @@ The first two sessions of the Linux module introduce the origins and evolution o
 
 ---
 
-## 4. Diagram of Linux Architecture
+## 5. Diagram of Linux Architecture
 ```mermaid
 graph TD
     subgraph User Space
@@ -88,14 +102,14 @@ graph TD
 
 ---
 
-## 5. MCQ EDGE CASES
+## 6. MCQ EDGE CASES
 - **GPL Misconceptions**: *“GPL forces all software on a system to be GPL.”* – Incorrect; the copyleft applies only to derivative works, not unrelated binaries.
 - **Kernel vs OS Confusion**: *“The kernel is the entire operating system.”* – The kernel is the core; the OS also includes user‑space tools, libraries, and init system.
 - **Server vs Desktop Linux Traps**: *“Any Linux distro works equally well as a production server.”* – Desktop‑oriented distros may lack long‑term support, hardened defaults, or minimal footprints required for servers.
 
 ---
 
-## 6. Ten MCQs (Easy → Tricky)
+## 7. Ten MCQs (Easy → Tricky)
 1. **Which year was the first Linux kernel released?**
    - A) 1989
    - B) 1991 *(Correct)*
@@ -149,14 +163,14 @@ graph TD
 
 ---
 
-## 7. Short‑Answer Exam Questions
+## 8. Short‑Answer Exam Questions
 1. **Explain how the GPL copyleft mechanism influences commercial use of Linux‑based software.**
 2. **Describe the sequence of events when a user‑space program performs a `read()` system call.**
 3. **Identify three reasons why Linux is preferred for server deployments over proprietary operating systems.**
 
 ---
 
-## 8. Common Student Mistakes
+## 9. Common Student Mistakes
 - Assuming the GPL forces *all* software on a machine to be GPL‑licensed.
 - Confusing the kernel with the whole operating system; forgetting the role of init systems and user‑space utilities.
 - Selecting a desktop‑focused distribution for a production server without stripping unnecessary packages, leading to larger attack surface and wasted resources.
@@ -164,7 +178,7 @@ graph TD
 
 ---
 
-## 9. References
+## 10. References
 - **Books**: 
   - *Linux Kernel Development* – Robert Love (3rd ed.)
   - *Understanding the Linux Kernel* – Daniel P. Bovet & Marco Cesati
@@ -430,7 +444,7 @@ graph TD
   6. **Targets**: `systemd` reaches a target (like `multi-user.target`), which triggers services like `sshd` or web servers.
 
 
-## 9. References (Man Pages)
+## 10. References (Man Pages)
 - `man 5 bootloader` – GRUB configuration
 - `man 8 systemd` – systemd and targets
 - `man 1 ls`
@@ -566,7 +580,7 @@ flowchart TD
   - The system checks permissions in specific order: **Owner** first, then **Named Users (ACLs)**, then **Group** (including named groups), and finally **Others**.
   - **Masking**: If an ACL mask is present, it acts as a ceiling. Even if an ACL grants `rwx`, if the mask is `r--`, the effective permission is only `r--`.
 
-## 9. References
+## 10. References
 - `man 1 chmod`
 - `man 1 chown`
 - `man 1 chgrp`
@@ -1023,7 +1037,7 @@ Verify with `git log`.
    ```
 Open a Pull Request on GitHub.
 
-### 9. References
+### 10. References
 - Official Git Documentation: <https://git-scm.com/doc>
 - GitHub Guides: <https://guides.github.com/>
 - Pro Git (Scott Chacon & Ben Straub) – free online book.
@@ -1059,7 +1073,7 @@ Open a Pull Request on GitHub.
 | Pricing Model | Pay‑as‑you‑go, Reserved, Spot | Pay‑as‑you‑go, Reserved, Spot | Pay‑as‑you‑go, Sustained Use, Preemptible |
 | Free Tier | 12 months + always‑free limits | 12 months + always‑free limits | 12 months + always‑free limits |
 
-### 4. Diagram – Traditional IT vs Cloud
+### 5. Diagram – Traditional IT vs Cloud
 
 > **Diagram Context:** The diagram contrasts the traditional on‑premise lifecycle (hardware purchase, manual provisioning, scaling) with the cloud model where resources are selected, configured, and auto‑scaled via APIs.
 ```mermaid
@@ -1342,7 +1356,7 @@ flowchart TB
     VM2 --> C2
 ```
 
-### 9. References
+### 10. References
 - NIST SP 800‑145 – *The NIST Definition of Cloud Computing* (https://csrc.nist.gov/publications/detail/sp/800-145/final)
 - NIST SP 800‑53 – *Security and Privacy Controls for Information Systems and Organizations* (cloud security sections).
 - VMware Documentation – Hypervisor Types and vMotion.
