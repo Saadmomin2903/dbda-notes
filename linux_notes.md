@@ -1157,7 +1157,14 @@ flowchart LR
 10. Monitoring **CPU throttling** is a metric that indicates a VM is exceeding its allocated CPU credits. **True**
 
 ### 7. Lab Mini‑Scenarios
+
 **Lab 1 – Cost‑budget alarm**
+**Method 1: Basic (GUI - Console)**
+1. Go to AWS Billing Dashboard > Budgets.
+2. Click "Create budget" > "Cost budget".
+3. Set amount (e.g., $50) and email for alerts.
+
+**Method 2: Advanced (CLI)**
 ```bash
 # AWS CLI example
 aws budgets create-budget \
@@ -1219,7 +1226,14 @@ Verify the alarm triggers when spend exceeds the limit.
 10. Monitoring **CPU throttling** is a metric that indicates a VM is exceeding its allocated CPU credits. **True**
 
 ### 5. Lab Mini‑Scenarios
+
 **Lab 1 – Set up a cost‑budget alarm**
+**Method 1: Basic (GUI - Console)**
+1. Go to AWS Billing Dashboard > Budgets.
+2. Click "Create budget" > "Cost budget".
+3. Set monthly budget amount and alert email.
+
+**Method 2: Advanced (CLI)**
 ```bash
 # AWS example using AWS CLI
 aws budgets create-budget \
@@ -1386,7 +1400,14 @@ flowchart TB
 5. A **pre‑emptible VM** in GCP is equivalent to an AWS **Spot Instance**. **True**
 
 ### 6. Lab Mini‑Tasks (2)
-**Lab A – Deploy an EC2 instance and view the dashboard**
+
+**Lab A – Deploy an EC2 instance**
+**Method 1: Basic (GUI - Console)**
+1. Login to AWS Console > EC2 > "Launch Instance".
+2. Select an Image (AMI) like Amazon Linux and Instance Type `t2.micro`.
+3. Create/Select a key pair and click "Launch".
+
+**Method 2: Advanced (CLI)**
 ```bash
 aws ec2 run-instances \
   --image-id ami-0abcdef1234567890 \
@@ -1395,7 +1416,14 @@ aws ec2 run-instances \
   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=DemoEC2}]'
 # After launch, open the AWS console > EC2 > Instances to inspect the dashboard.
 ```
-**Lab B – Create an Azure Cosmos DB account via Azure CLI**
+
+**Lab B – Create an Azure Cosmos DB account**
+**Method 1: Basic (GUI - Portal)**
+1. Go to Azure Portal > "Create a resource" > Search "Azure Cosmos DB".
+2. Select "Core (SQL)" API and resource group.
+3. Click "Review + create".
+
+**Method 2: Advanced (CLI)**
 ```bash
 az cosmosdb create \
   --name mycosmosdb \
