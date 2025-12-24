@@ -59,16 +59,16 @@ The first two sessions of the Linux module introduce the origins and evolution o
 ```mermaid
 graph TD
     subgraph User Space
-        A[Applications & Shells]
-        B[Libraries (glibc, etc.)]
-        C[Utilities (coreutils, systemd)]
+        A["Applications & Shells"]
+        B["Libraries (glibc, etc.)"]
+        C["Utilities (coreutils, systemd)"]
     end
     subgraph Kernel Space
-        D[System Call Interface]
-        E[Process Scheduler]
-        F[Memory Manager]
-        G[Device Drivers]
-        H[Network Stack]
+        D["System Call Interface"]
+        E["Process Scheduler"]
+        F["Memory Manager"]
+        G["Device Drivers"]
+        H["Network Stack"]
     end
     A -->|syscall| D
     B -->|link| D
@@ -338,12 +338,12 @@ seq -w 1 100 | xargs -I{} touch file{}.txt
 ## 8. Diagram – Linux Boot Process
 ```mermaid
 graph TD
-    BIOS[BIOS/UEFI] -->|Bootloader| GRUB[GRUB]
-    GRUB -->|Kernel Image| KERNEL[Linux Kernel]
-    KERNEL -->|Initramfs| INITRD[initramfs]
-    INITRD -->|systemd| SYSTEMD[systemd (PID 1)]
-    SYSTEMD -->|Targets| MULTI[multi‑user.target]
-    MULTI -->|Services| SERVICES[sshd, nginx, …]
+    BIOS["BIOS/UEFI"] -->|Bootloader| GRUB[GRUB]
+    GRUB -->|Kernel Image| KERNEL["Linux Kernel"]
+    KERNEL -->|Initramfs| INITRD["initramfs"]
+    INITRD -->|systemd| SYSTEMD["systemd (PID 1)"]
+    SYSTEMD -->|Targets| MULTI["multi-user.target"]
+    MULTI -->|Services| SERVICES["sshd, nginx, …"]
 ```
 **ASCII fallback**
 ```
@@ -607,16 +607,16 @@ A **login shell** reads `/etc/profile`, then the first of `~/.bash_profile`, `~/
 
 ```mermaid
 flowchart TD
-    A[Start Shell] --> B{Login?}
-    B -- Yes --> C[/etc/profile]
-    C --> D{User Shell?}
-    D -- Bash --> E[~/.bash_profile\n~/.bash_login\n~/.profile]
-    D -- Zsh --> F[~/.zprofile]
-    B -- No --> G{Interactive?}
-    G -- Yes --> H{Bash?}
-    H -- Yes --> I[/etc/bashrc → ~/.bashrc]
-    H -- No --> J[/etc/zshrc → ~/.zshrc]
-    G -- No --> K[Read $BASH_ENV]
+    A["Start Shell"] --> B{"Login?"}
+    B -- Yes --> C["/etc/profile"]
+    C --> D{"User Shell?"}
+    D -- Bash --> E["~/.bash_profile\n~/.bash_login\n~/.profile"]
+    D -- Zsh --> F["~/.zprofile"]
+    B -- No --> G{"Interactive?"}
+    G -- Yes --> H{"Bash?"}
+    H -- Yes --> I["/etc/bashrc → ~/.bashrc"]
+    H -- No --> J["/etc/zshrc → ~/.zshrc"]
+    G -- No --> K["Read $BASH_ENV"]
 ```
 
 
@@ -811,8 +811,20 @@ setfacl -x u:user5 /tmp/acl_demo
 
 ### 11. Mermaid Diagram – Bash Execution Flow
 ```mermaid
-
-    K --> L[Return Status `$?`]
+flowchart TD
+    A[Read Command] --> B{Alias?}
+    B -- Yes --> C[Expand Alias] --> A
+    B -- No --> D{Keyword?}
+    D -- Yes --> E[Execute Construct]
+    D -- No --> F{Function?}
+    F -- Yes --> G[Execute Function]
+    F -- No --> H{Builtin?}
+    H -- Yes --> I[Execute Builtin]
+    H -- No --> J{Hash Table?}
+    J -- Yes --> K[Execute Path]
+    J -- No --> L[Search PATH]
+    L --> M[Execute/Fail]
+    M --> N["Return Status $?"]
 ```
 
 ### 12. References
@@ -863,12 +875,12 @@ setfacl -x u:user5 /tmp/acl_demo
 ### 5. Git Workflow Diagram
 ```mermaid
 flowchart TD
-    A[Working Directory] --> B[git add]
-    B --> C[Staging Area]
+    A["Working Directory"] --> B[git add]
+    B --> C["Staging Area"]
     C --> D[git commit]
-    D --> E[Local Repository]
-    E -->|push| F[Remote (GitHub)]
-    F -->|pull| E
+    D --> E["Local Repository"]
+    E -->|push| F["Remote (GitHub)"]
+    F -->|fetch/pull| E
 ```
 
 ### 6. Common MCQ Traps
@@ -961,15 +973,15 @@ Open a Pull Request on GitHub.
 > **Diagram Context:** The diagram contrasts the traditional on‑premise lifecycle (hardware purchase, manual provisioning, scaling) with the cloud model where resources are selected, configured, and auto‑scaled via APIs.
 ```mermaid
 flowchart LR
-    subgraph Traditional[Traditional On‑Premise]
-        A[Purchase Hardware] --> B[Install OS & Middleware]
-        B --> C[Provision Applications]
-        C --> D[Manual Scaling & Maintenance]
+    subgraph Traditional["Traditional On‑Premise"]
+        A["Purchase Hardware"] --> B["Install OS & Middleware"]
+        B --> C["Provision Applications"]
+        C --> D["Manual Scaling & Maintenance"]
     end
-    subgraph Cloud[Cloud Model]
-        E[Select Service (IaaS/PaaS/SaaS)] --> F[Configure via Console/API]
-        F --> G[Instant Provisioning]
-        G --> H[Auto‑Scaling & Managed Ops]
+    subgraph Cloud["Cloud Model"]
+        E["Select Service (IaaS/PaaS/SaaS)"] --> F["Configure via Console/API"]
+        F --> G["Instant Provisioning"]
+        G --> H["Auto‑Scaling & Managed Ops"]
     end
     Traditional --> Cloud
 ```
@@ -1200,20 +1212,20 @@ Verify the alarm triggers when the spend exceeds the limit.
 ### 8. Diagram – Virtualization Stack
 ```mermaid
 flowchart TB
-    subgraph PhysicalHardware[Physical Hardware]
-        HW[CPU, Memory, Storage, Network]
+    subgraph PhysicalHardware["Physical Hardware"]
+        HW["CPU, Memory, Storage, Network"]
     end
-    subgraph Hypervisor[Hypervisor Layer]
-        HV1[Type 1 Hypervisor]
-        HV2[Type 2 Hypervisor]
+    subgraph Hypervisor["Hypervisor Layer"]
+        HV1["Type 1 Hypervisor"]
+        HV2["Type 2 Hypervisor"]
     end
-    subgraph VMs[Virtual Machines]
-        VM1[Guest OS + Apps]
-        VM2[Guest OS + Apps]
+    subgraph VMs["Virtual Machines"]
+        VM1["Guest OS + Apps"]
+        VM2["Guest OS + Apps"]
     end
-    subgraph Containers[Containers]
-        C1[App + Dependencies]
-        C2[App + Dependencies]
+    subgraph Containers["Containers"]
+        C1["App + Dependencies"]
+        C2["App + Dependencies"]
     end
     HW --> HV1
     HW --> HV2
