@@ -16,7 +16,12 @@
 | 7 | Enum, Autoboxing, Annotations | [Session_07](Session_07_Enum_Autoboxing_Annotations.md) |
 | 8 | java.lang & java.util | [Session_08](Session_08_Java_Lang_Util.md) |
 | 9-10 | Generics & Collections | [Session_09_10](Session_09_10_Generics_Collections.md) |
-| 11-17 | Functional, Streams, Concurrency, JDBC | [Session_11_17](Session_11_17_Modern_Advanced_Java.md) |
+| 11 | Functional Programming | [Session_11](Session_11_Functional_Programming.md) |
+| 12 | Streams & Date/Time API | [Session_12](Session_12_Streams_DateTime.md) |
+| 13-14 | Concurrency & Multithreading | [Session_13_14](Session_13_14_Concurrency.md) |
+| 15 | IO & Serialization | [Session_15](Session_15_IO_Serialization.md) |
+| 16 | JVM Internals & Reflection | [Session_16](Session_16_JVM_Reflection.md) |
+| 17 | JDBC | [Session_17](Session_17_JDBC.md) |
 
 ---
 
@@ -309,9 +314,14 @@ try (ResourceType resource = new ResourceType()) {
 - Session 7: 12 MCQs
 - Session 8: 10 MCQs
 - Session 9-10: 10 MCQs
-- Session 11-17: 30 MCQs
+- Session 11: 10 MCQs (Functional Programming)
+- Session 12: 10 MCQs (Streams & Date/Time)
+- Session 13-14: 10 MCQs (Concurrency)
+- Session 15: 10 MCQs (IO & Serialization)
+- Session 16: 10 MCQs (JVM & Reflection)
+- Session 17: 10 MCQs (JDBC)
 
-**Total: 100+ MCQs**
+**Total: 126 MCQs**
 
 ---
 
